@@ -1,0 +1,14 @@
+version: 2
+jobs:
+  build:
+    machine: true
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "47:99:20:72:47:1f:cb:6c:0f:b3:fb:d2:77:df:48:ab"
+      - checkout
+      - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
+      - run: docker build -t dkthe713/docker:$CIRCLE_SHA1 .
+      - run: docker push dkthe713/docker:$CIRCLE_SHA1
+      - run: docker-compose up -d
+      #- run: ssh -o StrictHostKeyChecking=no ""
