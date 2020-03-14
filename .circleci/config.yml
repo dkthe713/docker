@@ -9,6 +9,7 @@ jobs:
       - checkout
       - run: docker login -u $DOCKER_USER -p $DOCKER_PASS
       - run: docker build -t dkthe713/docker:$CIRCLE_SHA1 .
+      - run: echo $CIRCLE_SHA1
       - run: docker push dkthe713/docker:$CIRCLE_SHA1
       - run: docker-compose up -d
       #- run: ssh -o StrictHostKeyChecking=no ""
